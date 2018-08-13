@@ -1,0 +1,36 @@
+<wsdl:definitions name="helloworld" targetNamespace="http://www.example.org/helloworld/" xmlns:hwa="http://www.example.org/helloworld/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:hwd="http://www.example.org/helloworld">
+  <wsdl:types>
+    <xsd:schema>
+    <xsd:import namespace="http://www.example.org/helloworld" schemaLocation="helloworld.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="helloWorldOperationRequest">
+    <wsdl:part element="hwd:helloInput" name="helloInputRequest"/>
+  </wsdl:message>
+  <wsdl:message name="helloWorldOperationResponse">
+    <wsdl:part element="hwd:helloOutput" name="hellowOutputResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="helloworld">
+    <wsdl:operation name="helloWorldOperation">
+      <wsdl:input message="hwa:helloWorldOperationRequest"/>
+      <wsdl:output message="hwa:helloWorldOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="helloworldSOAP" type="hwa:helloworld">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="helloWorldOperation">
+      <soap:operation soapAction="http://www.example.org/helloworld/NewOperation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="helloworld">
+    <wsdl:port binding="hwa:helloworldSOAP" name="helloworldSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
